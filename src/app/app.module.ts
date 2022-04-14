@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule }  from '@angular/fire/database';
+import { VirtualDeskModule } from './virtual-desk/virtual-desk.module';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { AngularFireDatabaseModule }  from '@angular/fire/database';
     AngularFirestoreModule,
     AngularFireDatabaseModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    VirtualDeskModule
   ],
   providers: [],
   bootstrap: [AppComponent]

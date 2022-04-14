@@ -1,1 +1,105 @@
-<p>registration works!</p>
+<div class="container mt-4">
+    <div class="row p-2 d-flex align-items-center">
+        <div class="col-md-6 p-2">
+            <h1><b>Student Registration</b></h1>
+            
+            <h4>Step 1</h4>
+            <p class="mb-4">Enter your details in the fields provided.</p>
+            
+            <h4>Step 2</h4>
+            <p class="mb-4">Click on Submit button to enroll yourself for Virtual Desk.</p>
+            
+            <h4>Step 3</h4>
+            <p class="mb-4">Navigate to Login Page to check your Notes.</p>
+        </div>
+        <div class="col-md-6 p-2">
+            <div class="login-card shadow container">
+                <form [formGroup]="studentForm">
+                    <div class="form-group">
+                        <label class="fw-bold">
+                            Roll Number
+                            <span class="mandatory"> *</span>
+                        </label>
+                        <input type="text"
+                            class="form-control"
+                            formControlName="rollNumber"
+                            autocomplete="off"
+                            [class.border-danger]="studentForm.get('rollNumber').invalid && (studentForm.get('rollNumber').dirty || studentForm.get('rollNumber').touched || isFormSubmitted)"/>
+                            <div *ngFor="let validation of validationMessages.rollNumber">
+                                <small class="text-danger error" *ngIf="studentForm.get('rollNumber').hasError(validation.type) && (studentForm.get('rollNumber').dirty || studentForm.get('rollNumber').touched || isFormSubmitted)">
+                                        {{validation.message}}
+                                </small>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">
+                            Student Name
+                            <span class="mandatory"> *</span>
+                        </label>
+                        <input type="text"
+                            class="form-control"
+                            formControlName="sName"
+                            autocomplete="off"
+                            [class.border-danger]="studentForm.get('sName').invalid && (studentForm.get('sName').dirty || studentForm.get('sName').touched || isFormSubmitted)"/>
+                            <div *ngFor="let validation of validationMessages.sName">
+                                <small class="text-danger error" *ngIf="studentForm.get('sName').hasError(validation.type) && (studentForm.get('sName').dirty || studentForm.get('sName').touched || isFormSubmitted)">
+                                        {{validation.message}}
+                                </small>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">
+                            Branch Code
+                            <span class="mandatory"> *</span>
+                        </label>
+                        <input type="text"
+                            class="form-control"
+                            formControlName="bCode"
+                            autocomplete="off"
+                            [class.border-danger]="studentForm.get('bCode').invalid && (studentForm.get('bCode').dirty || studentForm.get('bCode').touched || isFormSubmitted)"/>
+                            <div *ngFor="let validation of validationMessages.bCode">
+                                <small class="text-danger error" *ngIf="studentForm.get('bCode').hasError(validation.type) && (studentForm.get('bCode').dirty || studentForm.get('bCode').touched || isFormSubmitted)">
+                                        {{validation.message}}
+                                </small>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">
+                            Section
+                            <span class="mandatory"> *</span>
+                        </label>
+                        <input type="text"
+                            class="form-control"
+                            formControlName="section"
+                            autocomplete="off"
+                            [class.border-danger]="studentForm.get('section').invalid && (studentForm.get('section').dirty || studentForm.get('section').touched || isFormSubmitted)"/>
+                            <div *ngFor="let validation of validationMessages.bCode">
+                                <small class="text-danger error" *ngIf="studentForm.get('section').hasError(validation.type) && (studentForm.get('section').dirty || studentForm.get('section').touched || isFormSubmitted)">
+                                        {{validation.message}}
+                                </small>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">
+                            Password
+                            <span class="mandatory"> *</span>
+                        </label>
+                        <input type="password"
+                            class="form-control"
+                            formControlName="password"
+                            autocomplete="off"
+                            [class.border-danger]="studentForm.get('password').invalid && (studentForm.get('password').dirty || studentForm.get('password').touched || isFormSubmitted)"/>
+                            <div *ngFor="let validation of validationMessages.rollNumber">
+                                <small class="text-danger error" *ngIf="studentForm.get('password').hasError(validation.type) && (studentForm.get('password').dirty || studentForm.get('password').touched || isFormSubmitted)">
+                                        {{validation.message}}
+                                </small>
+                            </div>
+                    </div>
+                    <button class="btn btn-primary my-2 me-4" (click)="resetForm()">Reset</button>
+                    <button class="btn btn-primary my-2 " (click)="submitStudentForm()">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

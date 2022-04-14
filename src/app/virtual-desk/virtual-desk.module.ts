@@ -9,6 +9,7 @@ import { StudentLoginComponent } from './components/student-login/student-login.
 import { HomeComponent } from './components/home/home.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { FacultyRegistrationComponent } from './components/faculty-registration/faculty-registration.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     StudentLoginComponent,
     HomeComponent,
     RegistrationComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    FacultyRegistrationComponent
   ],
   imports: [
     CommonModule,
