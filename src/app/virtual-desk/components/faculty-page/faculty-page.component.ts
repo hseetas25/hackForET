@@ -20,6 +20,7 @@ export class FacultyPageComponent implements OnInit {
   fileName: string;
   url: string;
   uploadProgress: any;
+  facultyData: any = [];
   validationMessages = {
     bCode: [
       { type: 'required', message: 'Branch is required.'},
@@ -38,9 +39,9 @@ export class FacultyPageComponent implements OnInit {
     ]
   };
   validationPattern = {
-    bCode: new RegExp(`[a-zA-Z]{2,3}$`),
+    bCode: new RegExp(`[A-Z]{2,3}$`),
     year: new RegExp(`[1-4]{1}`),
-    section: new RegExp(`[a-zA-Z]{1}$`)
+    section: new RegExp(`[A-Z]{1}$`)
   };
   constructor(
     private formBuilder: FormBuilder,
@@ -52,6 +53,7 @@ export class FacultyPageComponent implements OnInit {
     this.isFormSubmitted = false;
     this.fileName = 'No File Selected';
     this.url =  '';
+    this.facultyData = [];
   }
   async upload(event: any): Promise<void> {
     this.file = event.target.files;
@@ -62,12 +64,12 @@ export class FacultyPageComponent implements OnInit {
     this.uploadProgress = await fileRef.put(fileUpload).percentageChanges();
     fileRef.getDownloadURL().subscribe(data=>{
       this.facultyForm.value.url = data;
-      this.fileURL();
     });
   }
 
   ngOnInit(): void {
     this.initializeForm();
+    this.getDocs();
   }
 
   initializeForm(): void {
@@ -84,7 +86,8 @@ export class FacultyPageComponent implements OnInit {
       subject: new FormControl(
         '', [Validators.required]
       ),
-      url: new FormControl('')
+      url: new FormControl(''),
+      name: new FormControl('')
     })
   }
 
@@ -92,17 +95,35 @@ export class FacultyPageComponent implements OnInit {
     this.facultyForm.reset();
   }
 
-  submitFacultyForm(): void {
-    if(this.facultyForm.invalid) {
-      return;
-    }
-    if(this.facultyForm.valid) {
-
-    }
+  async submitFacultyForm(): Promise<void> {
+    this.facultyForm.value.name = localStorage.getItem('name');
+    console.log(this.facultyForm.value)
+      const collection = this.facultyForm.value.bCode + this.facultyForm.value.year + this.facultyForm.value.section;
+      const fCollection = localStorage.getItem('id');
+      const id = this.firestore.createId();
+      await this.firestore.collection(collection).doc(id).set(this.facultyForm.value).then((data)=>{});
+      await this.firestore.collection(fCollection).doc(id).set(this.facultyForm.value).then((data)=>{});
+      this.toastr.success('Uploaded', 'File Successfully');
+      this.delay(2000);
+      window.location.reload();
   }
 
-  fileURL(): void {
-    console.log(this.facultyForm.value)
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
+  async getDocs(): Promise<void> {
+    await this.firestore.collection(localStorage.getItem('id')).stateChanges().subscribe((data)=>{
+      if(data && data.length > 0) {
+        data.forEach((data)=>{
+          this.facultyData.push(data.payload.doc.data());
+        })
+      }
+    })
+  }
+
+  openNewTab(url: string): void {
+    window.open(url, '_blank');
   }
 
 }

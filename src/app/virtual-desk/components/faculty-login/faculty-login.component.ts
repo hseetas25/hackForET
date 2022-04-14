@@ -66,6 +66,8 @@ export class FacultyLoginComponent implements OnInit {
           const userData: any = data.data();
           if(userData.password == password) {
             localStorage.setItem('flogin', 'success');
+            localStorage.setItem('id', id);
+            localStorage.setItem('name', userData.facultyName);
             this.toastr.success('Successful', 'Login');
             await this.delay(1000);
             window.location.reload();

@@ -9,10 +9,14 @@ import { ToastrService } from 'ngx-toastr';
 export class NavigationComponent implements OnInit {
   
   isLoggedIn: boolean;
+  isFLoggedIn: boolean;
+  isSLoggedIn: boolean;
   constructor(
     private toastr: ToastrService
   ) {
     this.isLoggedIn = false;
+    this.isFLoggedIn = false;
+    this.isSLoggedIn = false;
     this.loggedIn();
   }
 
@@ -22,6 +26,12 @@ export class NavigationComponent implements OnInit {
   loggedIn(): void {
     if(localStorage.getItem('flogin') === 'success' || localStorage.getItem('slogin') === 'success') {
       this.isLoggedIn = true;
+    }
+    if(localStorage.getItem('flogin') === 'success') {
+      this.isFLoggedIn = true;
+    }
+    if(localStorage.getItem('slogin') === 'success') {
+      this.isSLoggedIn = true;
     }
   }
 
