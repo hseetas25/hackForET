@@ -1,1 +1,100 @@
-<p>faculty-page works!</p>
+<div class="container mt-4">
+    <div class="row p-2 d-flex align-items-center">
+        <div class="col-md-6 p-2">
+            <h1><b>Faculty Login </b></h1>
+            
+            <h4>Step 1</h4>
+            <p class="mb-4">Enter your details in the fields provided.</p>
+            
+            <h4>Step 2</h4>
+            <p class="mb-4">Click on login button to sign in.</p>
+            
+            <h4>Step 3</h4>
+            <p class="mb-4">Upload the Notes.</p>
+        </div>
+        <div class="col-md-6 p-2">
+            <div class="login-card shadow container">
+                <form [formGroup]="facultyForm">
+                    <div class="form-group">
+                        <label class="fw-bold">
+                            Department
+                            <span class="mandatory"> *</span>
+                        </label>
+                        <input type="text"
+                            class="form-control"
+                            formControlName="bCode"
+                            autocomplete="off"
+                            [class.border-danger]="facultyForm.get('bCode').invalid && (facultyForm.get('bCode').dirty || facultyForm.get('bCode').touched || isFormSubmitted)"/>
+                            <div *ngFor="let validation of validationMessages.bCode">
+                                <small class="text-danger error" *ngIf="facultyForm.get('bCode').hasError(validation.type) && (facultyForm.get('bCode').dirty || facultyForm.get('bCode').touched || isFormSubmitted)">
+                                        {{validation.message}}
+                                </small>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">
+                            Year
+                            <span class="mandatory"> *</span>
+                        </label>
+                        <input type="text"
+                            class="form-control"
+                            formControlName="year"
+                            autocomplete="off"
+                            [class.border-danger]="facultyForm.get('year').invalid && (facultyForm.get('year').dirty || facultyForm.get('year').touched || isFormSubmitted)"/>
+                            <div *ngFor="let validation of validationMessages.year">
+                                <small class="text-danger error" *ngIf="facultyForm.get('year').hasError(validation.type) && (facultyForm.get('year').dirty || facultyForm.get('year').touched || isFormSubmitted)">
+                                        {{validation.message}}
+                                </small>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">
+                            Section
+                            <span class="mandatory"> *</span>
+                        </label>
+                        <input type="text"
+                            class="form-control"
+                            formControlName="section"
+                            autocomplete="off"
+                            [class.border-danger]="facultyForm.get('section').invalid && (facultyForm.get('section').dirty || facultyForm.get('section').touched || isFormSubmitted)"/>
+                            <div *ngFor="let validation of validationMessages.section">
+                                <small class="text-danger error" *ngIf="facultyForm.get('section').hasError(validation.type) && (facultyForm.get('section').dirty || facultyForm.get('section').touched || isFormSubmitted)">
+                                        {{validation.message}}
+                                </small>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">
+                            Subject
+                            <span class="mandatory"> *</span>
+                        </label>
+                        <input type="text"
+                            class="form-control"
+                            formControlName="subject"
+                            autocomplete="off"
+                            [class.border-danger]="facultyForm.get('subject').invalid && (facultyForm.get('subject').dirty || facultyForm.get('subject').touched || isFormSubmitted)"/>
+                            <div *ngFor="let validation of validationMessages.subject">
+                                <small class="text-danger error" *ngIf="facultyForm.get('subject').hasError(validation.type) && (facultyForm.get('subject').dirty || facultyForm.get('subject').touched || isFormSubmitted)">
+                                        {{validation.message}}
+                                </small>
+                            </div>
+                    </div>
+                    <input type="text" formControlname="url" hidden required>
+                    <div class="form-group">
+                        <label class="fw-bold">
+                            File
+                            <span class="mandatory"> *</span>
+                        </label>
+                        <input class="mx-2"type="file" (change)="upload($event)">
+                        <br>
+                        <label class="mt-3">Progress</label>
+                        <progress class="mx-3" max="100" [value]="(uploadProgress | async)"></progress>
+                    </div>
+                    <button class="btn btn-primary my-2 me-4" (click)="resetForm()">Reset</button>
+                    <button class="btn btn-primary my-2 " (click)="submitFacultyForm()">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
