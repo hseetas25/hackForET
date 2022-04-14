@@ -73,7 +73,7 @@
                             formControlName="section"
                             autocomplete="off"
                             [class.border-danger]="studentForm.get('section').invalid && (studentForm.get('section').dirty || studentForm.get('section').touched || isFormSubmitted)"/>
-                            <div *ngFor="let validation of validationMessages.bCode">
+                            <div *ngFor="let validation of validationMessages.section">
                                 <small class="text-danger error" *ngIf="studentForm.get('section').hasError(validation.type) && (studentForm.get('section').dirty || studentForm.get('section').touched || isFormSubmitted)">
                                         {{validation.message}}
                                 </small>
@@ -89,7 +89,7 @@
                             formControlName="password"
                             autocomplete="off"
                             [class.border-danger]="studentForm.get('password').invalid && (studentForm.get('password').dirty || studentForm.get('password').touched || isFormSubmitted)"/>
-                            <div *ngFor="let validation of validationMessages.rollNumber">
+                            <div *ngFor="let validation of validationMessages.password">
                                 <small class="text-danger error" *ngIf="studentForm.get('password').hasError(validation.type) && (studentForm.get('password').dirty || studentForm.get('password').touched || isFormSubmitted)">
                                         {{validation.message}}
                                 </small>
