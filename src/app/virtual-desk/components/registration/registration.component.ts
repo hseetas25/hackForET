@@ -78,7 +78,6 @@ export class RegistrationComponent implements OnInit {
 
   async submitStudentForm(): Promise<void> {
     this.isFormSubmitted = true;
-    this.toastr.info('Student Login Page', 'Redirected to')
     if(this.studentForm.invalid) {
       return;
     }
@@ -86,14 +85,21 @@ export class RegistrationComponent implements OnInit {
       const id = this.studentForm.value.rollNumber;
       const collection = 'college' + id.substring(0, 2);
       const stData = JSON.parse(JSON.stringify(this.studentForm.value));
-      await this.firestore.collection(collection).doc(this.studentForm.value.rollNumber).set(stData).then((res)=>{
-        
+      await this.firestore.collection(collection).doc(id).get().subscribe(async (data)=>{
+        if(data.exists) {
+          this.toastr.error('Already Exists', 'Account');
+          await this.delay(2000);
+          window.location.reload();
+        }
+        else {
+          await this.firestore.collection(collection).doc(id).set(stData).then((res)=>{});
+          this.toastr.success('Successful', 'Registration');
+          await this.delay(2000);
+          this.studentForm.reset();
+          this.router.navigate(['student']);
+          this.toastr.info('Student Login Page', 'Redirected to');
+        }
       });
-      this.toastr.success('Successful', 'Registration');
-      await this.delay(2000);
-      this.studentForm.reset();
-      this.router.navigate(['/student']);
-      this.toastr.info('Student Login Page', 'Redirected to')
     }
   }
 

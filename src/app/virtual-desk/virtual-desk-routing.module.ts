@@ -12,8 +12,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'student-registration', component: RegistrationComponent },
   { path: 'faculty-registration', component: FacultyRegistrationComponent },
-  { path: 'student-login' , component: StudentLoginComponent },
-  { path: 'faculty-login', component: FacultyLoginComponent },
+  { path: 'student' , component: StudentLoginComponent },
+  { path: 'faculty', component: FacultyLoginComponent },
   { path: '**', component: PageNotFoundComponent}
 ];
 

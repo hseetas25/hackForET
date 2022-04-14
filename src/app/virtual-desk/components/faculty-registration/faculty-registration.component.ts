@@ -76,14 +76,21 @@ export class FacultyRegistrationComponent implements OnInit {
     if(this.facultyForm.valid) {
       const id = this.facultyForm.value.facultyId;
       const ftData = JSON.parse(JSON.stringify(this.facultyForm.value));
-      await this.firestore.collection(`faculty`).doc(this.facultyForm.value.facultyId).set(ftData).then((res)=>{
-
-      });
-      this.toastr.success('Successful', 'Registration');
-      await this.delay(2000);
-      this.facultyForm.reset();
-      this.router.navigate(['/faculty']);
-      this.toastr.info('Faculty Login Page', 'Redirected to')
+      await this.firestore.collection(`faculty`).doc(id).get().subscribe(async (data)=>{
+        if(data.exists) {
+          this.toastr.error('Already Exists', 'Account');
+          await this.delay(2000);
+          window.location.reload();
+        }
+        else {
+          await this.firestore.collection(`faculty`).doc(this.facultyForm.value.facultyId).set(ftData).then((res)=>{});
+          this.toastr.success('Successful', 'Registration');
+          await this.delay(2000);
+          this.facultyForm.reset();
+          this.router.navigate(['faculty']);
+          this.toastr.info('Faculty Login Page', 'Redirected to');
+        }
+      })
     }
   }
 
