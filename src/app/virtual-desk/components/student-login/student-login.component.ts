@@ -24,7 +24,7 @@ export class StudentLoginComponent implements OnInit {
       ]
     };
   validationPattern = {
-    rollNumber: new RegExp(`[a-zA-Z0-9]{10}$`),
+    rollNumber: new RegExp(`[A-Z0-9]{10}$`),
   };
   constructor(
     private formBuilder: FormBuilder,
@@ -66,6 +66,10 @@ export class StudentLoginComponent implements OnInit {
           const userData: any = data.data();
           if(userData.password == password) {
             localStorage.setItem('slogin', 'success');
+            localStorage.setItem('name', userData.sName);
+            localStorage.setItem('branch', userData.bCode);
+            localStorage.setItem('roll', userData.rollNumber);
+            localStorage.setItem('sec', userData.section);
             this.toastr.success('Successful', 'Login');
             await this.delay(1000);
             window.location.reload();

@@ -36,10 +36,10 @@ export class RegistrationComponent implements OnInit {
       ]
     };
   validationPattern = {
-    rollNumber: new RegExp(`[a-zA-Z0-9]{10}$`),
+    rollNumber: new RegExp(`[A-Z0-9]{10}$`),
     sName: new RegExp(`[a-zA-Z]+$`),
-    bCode: new RegExp(`[a-zA-Z]{2,3}$`),
-    section: new RegExp(`[a-zA-Z]{1}$`),
+    bCode: new RegExp(`[A-Z]{2,3}$`),
+    section: new RegExp(`[A-Z]{1}$`),
   };
   constructor(
     private formBuilder: FormBuilder,

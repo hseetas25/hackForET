@@ -24,7 +24,7 @@ export class FacultyLoginComponent implements OnInit {
       ]
     };
   validationPattern = {
-    facultyId: new RegExp(`[a-zA-Z0-9]{10}$`),
+    facultyId: new RegExp(`[A-Z0-9]{10}$`),
   };
 
   constructor(

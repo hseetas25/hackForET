@@ -1,1 +1,18 @@
-<p>student-page works!</p>
+<div class="container mt-4">
+    <div *ngIf="documentData.length">
+        <h3 class="text-center mt-5"><b>List Of Documents</b></h3>
+        <div class="card" style="width: 50%;" *ngFor="let document of documentData">
+            <div class="card-header"><b>Subject: </b>{{document.subject}}</div>
+            <div class="card-body">
+                <p><b>Faculty Name: </b> {{document.name}}</p>
+                <p><b>Course Year: </b>{{document.year}}</p>
+                <p><b>Department Code: </b>{{document.bCode}}</p>
+                <p><b>Section: </b>{{document.section}}</p>
+                <button class="btn btn-primary" (click)="openNewTab(document.url)">View/Download File</button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!documentData.length">
+        <h3 class="text-center mt-5"><b>No Documents Uploaded</b></h3>
+    </div>
+</div>
