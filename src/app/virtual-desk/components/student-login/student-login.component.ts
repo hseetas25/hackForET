@@ -13,6 +13,7 @@ export class StudentLoginComponent implements OnInit {
 
   isFormSubmitted: boolean;
   studentForm: FormGroup;
+  isSLoggedIn: boolean;
   validationMessages = {
       rollNumber: [
           { type: 'required', message: 'Roll Number is required.' },
@@ -23,7 +24,7 @@ export class StudentLoginComponent implements OnInit {
       ]
     };
   validationPattern = {
-    rollNumber: new RegExp(`[0-9]{10}$`),
+    rollNumber: new RegExp(`[a-zA-Z0-9]{10}$`),
   };
   constructor(
     private formBuilder: FormBuilder,
@@ -32,7 +33,8 @@ export class StudentLoginComponent implements OnInit {
     private toastr: ToastrService
   ) {
       this.isFormSubmitted = false;
-
+      this.isSLoggedIn = false;
+      this.loggedIn();
   }
 
   ngOnInit(): void {
@@ -50,12 +52,46 @@ export class StudentLoginComponent implements OnInit {
     })
   }
 
-  submitStudentForm(): void {
+  async submitStudentForm(): Promise<void> {
     this.isFormSubmitted = true;
+    if(this.studentForm.invalid) {
+      return;
+    }
+    if(this.studentForm.valid) {
+      let id = this.studentForm.value.rollNumber;
+      let password =this.studentForm.value.password;
+      const collection = 'college' + id.substring(0, 2);
+      await this.firestore.collection(collection).doc(id).get().subscribe(async (data)=>{
+        if(data.exists) {
+          const userData: any = data.data();
+          if(userData.password == password) {
+            localStorage.setItem('slogin', 'success');
+            this.toastr.success('Successful', 'Login');
+            await this.delay(1000);
+            window.location.reload();
+          }
+        }
+        else {
+          this.toastr.error('Details', 'Invalid');
+          await this.delay(2000);
+          window.location.reload();
+        }
+      })
+    }
   }
 
   resetForm(): void {
     this.studentForm.reset();
+  }
+
+  loggedIn(): void {
+    if(localStorage.getItem('slogin') === 'success') {
+      this.isSLoggedIn = true;
+    }
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
 }

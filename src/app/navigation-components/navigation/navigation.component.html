@@ -14,10 +14,11 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-link" routerLink="home" routerLinkActive="active" aria-current="page">Home</a>
-                <a class="nav-link" routerLink="student-registration" routerLinkActive="active">Student Registration</a>
-                <a class="nav-link" routerLink="faculty-registration" routerLinkActive="active">Faculty Registration</a>
-                <a class="nav-link" routerLink="faculty-login" routerLinkActive="active">Faculty Login</a>
-                <a class="nav-link" routerLink="student-login" routerLinkActive="active">Student Login</a>
+                <a class="nav-link" *ngIf='!isLoggedIn' routerLink="student-registration" routerLinkActive="active">Student Registration</a>
+                <a class="nav-link" *ngIf='!isLoggedIn' routerLink="faculty-registration" routerLinkActive="active">Faculty Registration</a>
+                <a class="nav-link" *ngIf='!isLoggedIn' routerLink="faculty-login" routerLinkActive="active">Faculty Login</a>
+                <a class="nav-link" *ngIf='!isLoggedIn' routerLink="student-login" routerLinkActive="active">Student Login</a>
+                <a class="nav-link" *ngIf='isLoggedIn' routerLinkActive="active"><button class="btn btn-info" (click)="logout()">Logout</button></a>
             </div>
         </div>
 

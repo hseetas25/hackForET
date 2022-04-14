@@ -13,6 +13,7 @@ export class FacultyRegistrationComponent implements OnInit {
 
   isFormSubmitted: boolean;
   facultyForm: FormGroup;
+  isLoggedIn: boolean;
   validationMessages = {
       facultyId: [
           { type: 'required', message: 'Faculty ID is required.' },
@@ -30,7 +31,7 @@ export class FacultyRegistrationComponent implements OnInit {
       ]
     };
   validationPattern = {
-    facultyId: new RegExp(`[0-9]{10}$`),
+    facultyId: new RegExp(`[a-zA-Z0-9]{10}$`),
     facultyName: new RegExp(`[a-zA-Z]+$`),
     bCode: new RegExp(`[a-zA-Z\d]{2,3}$`),
   };
@@ -42,7 +43,8 @@ export class FacultyRegistrationComponent implements OnInit {
     private toastr: ToastrService
   ) {
       this.isFormSubmitted = false;
-
+      this.isLoggedIn = false;
+      this.loggedIn();
   }
 
   ngOnInit(): void {
@@ -66,12 +68,37 @@ export class FacultyRegistrationComponent implements OnInit {
     })
   }
 
-  submitFacultyForm(): void {
-    
+  async submitFacultyForm(): Promise<void> {
+    this.isFormSubmitted = true;
+    if(this.facultyForm.invalid) {
+      return;
+    }
+    if(this.facultyForm.valid) {
+      const id = this.facultyForm.value.facultyId;
+      const ftData = JSON.parse(JSON.stringify(this.facultyForm.value));
+      await this.firestore.collection(`faculty`).doc(this.facultyForm.value.facultyId).set(ftData).then((res)=>{
+
+      });
+      this.toastr.success('Successful', 'Registration');
+      await this.delay(2000);
+      this.facultyForm.reset();
+      this.router.navigate(['/faculty']);
+      this.toastr.info('Faculty Login Page', 'Redirected to')
+    }
   }
 
   resetForm(): void {
     this.facultyForm.reset();
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
+  loggedIn(): void {
+    if(localStorage.getItem('flogin') === 'success' || localStorage.getItem('slogin') === 'success') {
+      this.isLoggedIn = true;
+    }
   }
 
 }

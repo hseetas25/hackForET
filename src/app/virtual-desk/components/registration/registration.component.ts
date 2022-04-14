@@ -14,6 +14,7 @@ export class RegistrationComponent implements OnInit {
 
   isFormSubmitted: boolean;
   studentForm: FormGroup;
+  isLoggedIn: boolean;
   validationMessages = {
       rollNumber: [
           { type: 'required', message: 'Roll Number is required.' },
@@ -35,7 +36,7 @@ export class RegistrationComponent implements OnInit {
       ]
     };
   validationPattern = {
-    rollNumber: new RegExp(`[0-9]{10}$`),
+    rollNumber: new RegExp(`[a-zA-Z0-9]{10}$`),
     sName: new RegExp(`[a-zA-Z]+$`),
     bCode: new RegExp(`[a-zA-Z]{2,3}$`),
     section: new RegExp(`[a-zA-Z]{1}$`),
@@ -47,7 +48,8 @@ export class RegistrationComponent implements OnInit {
     private toastr: ToastrService
   ) {
       this.isFormSubmitted = false;
-
+      this.isLoggedIn =  false;
+      this.loggedIn();
   }
 
   ngOnInit(): void {
@@ -74,12 +76,39 @@ export class RegistrationComponent implements OnInit {
     })
   }
 
-  submitStudentForm(): void {
+  async submitStudentForm(): Promise<void> {
     this.isFormSubmitted = true;
+    this.toastr.info('Student Login Page', 'Redirected to')
+    if(this.studentForm.invalid) {
+      return;
+    }
+    if(this.studentForm.valid) {
+      const id = this.studentForm.value.rollNumber;
+      const collection = 'college' + id.substring(0, 2);
+      const stData = JSON.parse(JSON.stringify(this.studentForm.value));
+      await this.firestore.collection(collection).doc(this.studentForm.value.rollNumber).set(stData).then((res)=>{
+        
+      });
+      this.toastr.success('Successful', 'Registration');
+      await this.delay(2000);
+      this.studentForm.reset();
+      this.router.navigate(['/student']);
+      this.toastr.info('Student Login Page', 'Redirected to')
+    }
   }
 
   resetForm(): void {
     this.studentForm.reset();
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
+  loggedIn(): void {
+    if(localStorage.getItem('flogin') === 'success' || localStorage.getItem('slogin') === 'success') {
+      this.isLoggedIn = true;
+    }
   }
 
 }

@@ -10,6 +10,8 @@ import { HomeComponent } from './components/home/home.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { FacultyRegistrationComponent } from './components/faculty-registration/faculty-registration.component';
+import { StudentPageComponent } from './components/student-page/student-page.component';
+import { FacultyPageComponent } from './components/faculty-page/faculty-page.component';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { FacultyRegistrationComponent } from './components/faculty-registration/
     HomeComponent,
     RegistrationComponent,
     PageNotFoundComponent,
-    FacultyRegistrationComponent
+    FacultyRegistrationComponent,
+    StudentPageComponent,
+    FacultyPageComponent
   ],
   imports: [
     CommonModule,
