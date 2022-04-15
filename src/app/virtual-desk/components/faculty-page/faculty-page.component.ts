@@ -65,6 +65,7 @@ export class FacultyPageComponent implements OnInit {
     fileRef.getDownloadURL().subscribe(data=>{
       this.facultyForm.value.url = data;
     });
+    this.facultyForm.value.name = localStorage.getItem('name');
   }
 
   ngOnInit(): void {
@@ -96,16 +97,14 @@ export class FacultyPageComponent implements OnInit {
   }
 
   async submitFacultyForm(): Promise<void> {
-    this.facultyForm.value.name = localStorage.getItem('name');
-    console.log(this.facultyForm.value)
-      const collection = this.facultyForm.value.bCode + this.facultyForm.value.year + this.facultyForm.value.section;
-      const fCollection = localStorage.getItem('id');
-      const id = this.firestore.createId();
-      await this.firestore.collection(collection).doc(id).set(this.facultyForm.value).then((data)=>{});
-      await this.firestore.collection(fCollection).doc(id).set(this.facultyForm.value).then((data)=>{});
-      this.toastr.success('Uploaded', 'File Successfully');
-      this.delay(2000);
-      window.location.reload();
+    const collection = this.facultyForm.value.bCode + this.facultyForm.value.year + this.facultyForm.value.section;
+    const fCollection = localStorage.getItem('id');
+    const id = this.firestore.createId();
+    await this.firestore.collection(collection).doc(id).set(this.facultyForm.value).then((data)=>{});
+    await this.firestore.collection(fCollection).doc(id).set(this.facultyForm.value).then((data)=>{});
+    this.toastr.success('Uploaded', 'File Successfully');
+    this.delay(2000);
+    window.location.reload();
   }
 
   delay(ms: number) {
