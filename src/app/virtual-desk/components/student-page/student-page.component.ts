@@ -12,6 +12,8 @@ export class StudentPageComponent implements OnInit {
 
   documentData: object;
   subjects: Array<string>;
+  searchPipe: any = '';
+  searchWord: any = '';
   constructor(
     private firestore: AngularFirestore,
     private toastr: ToastrService
@@ -53,7 +55,6 @@ export class StudentPageComponent implements OnInit {
         });
       }
     });
-    console.log(this.documentData, this.subjects)
   }
 
   openNewTab(url: string): void {

@@ -12,6 +12,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { FacultyRegistrationComponent } from './components/faculty-registration/faculty-registration.component';
 import { StudentPageComponent } from './components/student-page/student-page.component';
 import { FacultyPageComponent } from './components/faculty-page/faculty-page.component';
+import { SearchPipePipe } from './search-pipe.pipe';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { FacultyPageComponent } from './components/faculty-page/faculty-page.com
     PageNotFoundComponent,
     FacultyRegistrationComponent,
     StudentPageComponent,
-    FacultyPageComponent
+    FacultyPageComponent,
+    SearchPipePipe
   ],
   imports: [
     CommonModule,

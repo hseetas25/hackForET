@@ -1,15 +1,16 @@
 <div class="container mt-4">
+    <div class="form-group">
+        <input type="text" class="form-control mb-5" placeholder="Type any keyword" [(ngModel)]="searchWord">
+    </div>
     <div *ngIf="subjects.length">
         <h3 class="text-center mt-5"><b>List Of Documents</b></h3>
-        <div class="row my-5" *ngFor="let subject of subjects">
-            <h4><b>{{subject}}</b></h4>
-            <div class="col-sm-6 col-lg-4 col-xl-3" *ngFor="let document of documentData[subject]">
+        <div class="row my-5" *ngFor="let subject of subjects.sort()">
+            <h4 *ngIf="!searchWord.length"><b>{{subject}}</b></h4>
+            <div class="col-sm-6 col-lg-4 col-xl-3" *ngFor="let document of documentData[subject] | searchPipe: searchWord">
                 <div class="card my-3" >
                     <div class="card-header"><p><b>Faculty Name: </b> {{document.name}}</p></div>
                     <div class="card-body">
-                        <p><b>Course Year: </b>{{document.year}}</p>
-                        <p><b>Department Code: </b>{{document.bCode}}</p>
-                        <p><b>Section: </b>{{document.section}}</p>
+                        <p *ngIf="searchWord.length"><b>{{subject}}</b></p>
                         <p><b>Topic: </b>{{document.topic}}</p>
                         <button class="btn btn-primary" (click)="openNewTab(document.url)">View/Download File</button>
                     </div>
