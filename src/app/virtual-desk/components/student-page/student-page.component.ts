@@ -55,6 +55,9 @@ export class StudentPageComponent implements OnInit {
         });
       }
     });
+
+    console.log(this.documentData);
+    
   }
 
   openNewTab(url: string): void {

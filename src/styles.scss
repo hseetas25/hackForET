@@ -51,12 +51,19 @@ h4 {
 }
 
 /* ================================================================ */
+/* BACKGROUND COLORS                                                */
+/* ================================================================ */
+.bg-primary {
+    background-color: var(--theme-col) !important;
+}
+
+/* ================================================================ */
 /* BUTTONS                                                          */
 /* ================================================================ */
 
 .btn-primary {
     border-color: var(--theme-50);
-    border-radius: 8px;
+    border-radius: 12px;
 
     background-color: var(--theme-25);
     color: var(--text-col);
@@ -70,9 +77,35 @@ h4 {
 }
 
 .btn-primary:active, .btn-primary:focus {
-    box-shadow: 0 0 0 0.25rem var(--theme-col) !important;
+    box-shadow: 0 0 0 0.25rem var(--theme-25) !important;
     background-color: var(--theme-active) !important;
     
     border-color: var(--theme-active);
     color: var(--bg-col);
+}
+
+/* ================================================================ */
+/* FORM CONTROL                                                     */
+/* ================================================================ */
+.form-control {
+    border-radius: 12px;
+}
+
+.form-control:active, .form-control:focus {
+    box-shadow: 0 0 0 0.25rem var(--theme-25) !important;
+    border-color: var(--theme-active);
+}
+
+/* ================================================================ */
+/* FULL WIDTH CARD                                                  */
+/* ================================================================ */
+.fw-card {
+    padding: 16px;
+    border: 1px solid lightgrey;
+    border-radius: 12px;
+    transition: all 0.3s;
+}
+
+.fw-card:hover {
+    box-shadow: 0 8px 16px lightgrey;
 }
