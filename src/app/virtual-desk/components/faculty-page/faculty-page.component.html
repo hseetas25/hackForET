@@ -9,6 +9,7 @@
                         <p><b>Course Year: </b>{{faculty.year}}</p>
                         <p><b>Department Code: </b>{{faculty.bCode}}</p>
                         <p><b>Section: </b>{{faculty.section}}</p>
+                        <p><b>Topic: </b>{{faculty.topic}}</p>
                         <button class="btn btn-info" (click)="openNewTab(faculty.url)">View/Download File</button>
                     </div>
                 </div>
@@ -84,6 +85,22 @@
                                 </small>
                             </div>
                     </div>
+                    <div class="form-group">
+                        <label class="fw-bold">
+                            Topic
+                            <span class="mandatory"> *</span>
+                        </label>
+                        <input type="text"
+                            class="form-control"
+                            formControlName="topic"
+                            autocomplete="off"
+                            [class.border-danger]="facultyForm.get('topic').invalid && (facultyForm.get('topic').dirty || facultyForm.get('topic').touched || isFormSubmitted)"/>
+                            <div *ngFor="let validation of validationMessages.topic">
+                                <small class="text-danger error" *ngIf="facultyForm.get('topic').hasError(validation.type) && (facultyForm.get('topic').dirty || facultyForm.get('topic').touched || isFormSubmitted)">
+                                        {{validation.message}}
+                                </small>
+                            </div>
+                    </div>
                     <input type="text" formControlName="url" hidden required>
                     <input type="text" formControlName="name" hidden required>
                     <div class="form-group">
@@ -93,7 +110,7 @@
                         </label>
                         <input class="mx-2"type="file" (change)="upload($event)">
                         <br>
-                        <label class="mt-3">Progress</label>
+                        <label class="mt-3 fw-bold">Progress</label>
                         <progress class="mx-3" max="100" [value]="(uploadProgress | async)"></progress>
                     </div>
                     <button class="btn btn-primary my-2 me-4" (click)="resetForm()">Reset</button>

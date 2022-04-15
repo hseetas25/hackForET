@@ -36,6 +36,9 @@ export class FacultyPageComponent implements OnInit {
     ],
     subject: [
       { type: 'required', message: 'Subject is required.'}
+    ],
+    topic: [
+      { type: 'required', message: 'Topic is required.'}
     ]
   };
   validationPattern = {
@@ -87,6 +90,9 @@ export class FacultyPageComponent implements OnInit {
       subject: new FormControl(
         '', [Validators.required]
       ),
+      topic: new FormControl(
+        '', [Validators.required]
+      ),
       url: new FormControl(''),
       name: new FormControl('')
     })
@@ -97,6 +103,7 @@ export class FacultyPageComponent implements OnInit {
   }
 
   async submitFacultyForm(): Promise<void> {
+    this.isFormSubmitted = true;
     const collection = this.facultyForm.value.bCode + this.facultyForm.value.year + this.facultyForm.value.section;
     const fCollection = localStorage.getItem('id');
     const id = this.firestore.createId();
