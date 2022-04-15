@@ -1,16 +1,21 @@
 <div class="container mt-4">
-    <div class="row p-2 d-flex align-items-center">
-        <div class="col-md-6">
+    <div class="row p-2">
+        <div class="col-md-6 p-4 order-2 order-md-1">
             <div *ngIf="facultyData.length">
-                <h3 class="mt-2"><b>List of Documents Uploaded by the faculty </b></h3>
-                <div class="card mt-2 mx-2" *ngFor="let faculty of facultyData">
-                    <div class="card-header" style="background-color: rgb(230, 152, 152);"><b>Subject: </b>{{faculty.subject}}</div>
-                    <div class="card-body" style="background-color: rgb(244, 238, 229);">
-                        <p><b>Course Year: </b>{{faculty.year}}</p>
-                        <p><b>Department Code: </b>{{faculty.bCode}}</p>
-                        <p><b>Section: </b>{{faculty.section}}</p>
-                        <p><b>Topic: </b>{{faculty.topic}}</p>
-                        <button class="btn btn-info" (click)="openNewTab(faculty.url)">View/Download File</button>
+                <h5 class="my-5 display-4">Uploaded Documents</h5>
+                <div *ngFor="let faculty of facultyData">
+                    <div class="fw-card my-3">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span class="badge bg-primary me-2 mb-2">{{faculty.bCode}} {{faculty.section}}</span>
+                                <span class="badge bg-primary me-2 mb-2">Year {{faculty.year}}</span>
+                                <p class="mb-0 lead fw-bold">{{faculty.topic}}</p>
+                                <p class="mb-0">{{faculty.subject}}</p>
+                            </div>
+                            <div class="col-sm-6 d-flex justify-content-sm-end align-items-center">
+                                <button class="btn btn-primary my-2" (click)="openNewTab(faculty.url)">View/Download File</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -18,7 +23,7 @@
                 <h3><b>No Documents Uploaded</b></h3>
             </div>
         </div>
-        <div class="col-md-6 p-2">
+        <div class="col-md-6 p-4 order-1 order-md-2">
             <div class="login-card shadow container">
                 <form [formGroup]="facultyForm">
                     <div class="form-group">
