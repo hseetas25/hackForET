@@ -12,12 +12,14 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule }  from '@angular/fire/database';
 import { VirtualDeskModule } from './virtual-desk/virtual-desk.module';
+import { FooterComponent } from './navigation-components/footer/footer.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavigationComponent
+    NavigationComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

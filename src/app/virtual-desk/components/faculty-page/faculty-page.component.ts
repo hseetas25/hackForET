@@ -21,6 +21,7 @@ export class FacultyPageComponent implements OnInit {
   url: string;
   uploadProgress: any;
   facultyData: any = [];
+  fname: string;
   validationMessages = {
     bCode: [
       { type: 'required', message: 'Branch is required.'},
@@ -56,6 +57,7 @@ export class FacultyPageComponent implements OnInit {
     this.isFormSubmitted = false;
     this.fileName = 'No File Selected';
     this.url =  '';
+    this.fname = '';
     this.facultyData = [];
   }
   async upload(event: any): Promise<void> {
@@ -74,6 +76,7 @@ export class FacultyPageComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();
     this.getDocs();
+    this.fname = localStorage.getItem('name');
   }
 
   initializeForm(): void {
@@ -107,8 +110,9 @@ export class FacultyPageComponent implements OnInit {
     const collection = this.facultyForm.value.bCode + this.facultyForm.value.year + this.facultyForm.value.section;
     const fCollection = localStorage.getItem('id');
     const id = this.firestore.createId();
-    await this.firestore.collection(collection).doc(id).set(this.facultyForm.value).then((data)=>{});
-    await this.firestore.collection(fCollection).doc(id).set(this.facultyForm.value).then((data)=>{});
+    const fData = JSON.parse(JSON.stringify(this.facultyForm.value));
+    await this.firestore.collection(collection).doc(id).set(fData).then((data)=>{});
+    await this.firestore.collection(fCollection).doc(id).set(fData).then((data)=>{});
     this.toastr.success('Uploaded', 'File Successfully');
     this.delay(2000);
     window.location.reload();

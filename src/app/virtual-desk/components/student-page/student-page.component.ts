@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr';
 
+
 @Component({
   selector: 'app-student-page',
   templateUrl: './student-page.component.html',
@@ -9,11 +10,15 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class StudentPageComponent implements OnInit {
 
-  documentData: any = [];
+  documentData: object;
+  subjects: Array<string>;
   constructor(
     private firestore: AngularFirestore,
     private toastr: ToastrService
-  ) { }
+  ) {
+    this.documentData = {};
+    this.subjects = [];
+  }
 
   ngOnInit(): void {
     this.getData();
@@ -34,14 +39,21 @@ export class StudentPageComponent implements OnInit {
       year = '1'
     }
     const collection = localStorage.getItem('branch') + year + localStorage.getItem('sec');
-    console.log(collection)
     this.firestore.collection(collection).snapshotChanges().subscribe((data)=>{
       if(data && data.length > 0) {
         data.forEach((data)=>{
-          this.documentData.push(data.payload.doc.data());
-        })
+          let obj: any=  data.payload.doc.data();
+          if( obj.subject in this.documentData) {
+            this.documentData[obj.subject].push(obj);
+          }
+          else {
+            this.documentData[obj.subject] = [obj];
+            this.subjects.push(obj.subject);
+          }
+        });
       }
     });
+    console.log(this.documentData, this.subjects)
   }
 
   openNewTab(url: string): void {
