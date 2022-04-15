@@ -20,7 +20,7 @@
                 <a class="nav-link" *ngIf='isFLoggedIn' routerLink="faculty" routerLinkActive="active">Faculty Page</a>
                 <a class="nav-link" *ngIf='!isLoggedIn' routerLink="student" routerLinkActive="active">Student Login</a>
                 <a class="nav-link" *ngIf='isSLoggedIn' routerLink="student" routerLinkActive="active">Student Page</a>
-                <button class="btn btn-danger nav-link"  *ngIf='isLoggedIn' routerLinkActive="active" (click)="logout()">Logout</button>
+                <button class="btn btn-primary" *ngIf='isLoggedIn' routerLinkActive="active" (click)="logout()">Logout</button>
             </div>
         </div>
 
